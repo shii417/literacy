@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="数理・データサイエンス・AI入門 第1回〜第10回の試験対策シートと自動採点クイズ">
+  <title>明日のテスト対策｜数理・データサイエンス・AI入門</title>
+  <style>
+    :root {
+      --paper: #f4f0e6;
+      --paper-2: #fffdf7;
+      --ink: #18211f;
+      --muted: #5d6864;
+      --line: #c9c3b6;
+      --teal: #0d5c57;
+      --teal-soft: #dcebe5;
+      --orange: #e56b3f;
+      --orange-soft: #f8ded1;
+      --yellow: #f4c95d;
+      --green: #236b4e;
+      --green-soft: #e0f0e7;
+      --red: #a33b2d;
+      --red-soft: #f7ded9;
+      --shadow: 0 18px 50px rgba(24, 33, 31, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(rgba(13, 92, 87, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13, 92, 87, 0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 28px 28px;
+      color: var(--ink);
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;
+      line-height: 1.75;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px max(20px, calc((100vw - 1160px) / 2));
+      color: var(--paper-2);
+      background: rgba(24, 33, 31, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.16);
+    }
+    .topbar strong { font-size: .9rem; letter-spacing: .05em; }
+    .topnav { display: flex; flex-wrap: wrap; gap: 8px; }
+    .topnav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: .82rem;
+      text-decoration: none;
+    }
+    .topnav a:hover { background: rgba(255,255,255,.13); }
+
+    .wrap { width: min(1160px, calc(100% - 32px)); margin-inline: auto; }
+    .hero { padding: 76px 0 58px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.45fr .75fr;
+      gap: 42px;
+      align-items: end;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      color: var(--teal);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 3px; background: var(--orange); }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 5.7rem);
+      letter-spacing: -.055em;
+    }
+    h1 span { color: var(--teal); }
+    .lead { max-width: 760px; margin: 24px 0 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.18rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 10px 17px;
+      border: 1px solid var(--ink);
+      border-radius: 10px;
+      color: var(--ink);
+      background: var(--paper-2);
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
+    .btn.primary { color: #fff; background: var(--teal); }
+    .btn.ghost { background: transparent; box-shadow: none; }
+    .hero-note {
+      position: relative;
+      padding: 28px;
+      background: var(--yellow);
+      border: 2px solid var(--ink);
+      border-radius: 4px 18px 4px 18px;
+      box-shadow: 8px 8px 0 var(--ink);
+      transform: rotate(1.2deg);
+    }
+    .hero-note::before {
+      content: "";
+      position: absolute;
+      top: -13px;
+      left: 36%;
+      width: 86px;
+      height: 24px;
+      background: rgba(255,255,255,.58);
+      transform: rotate(-4deg);
+    }
+    .hero-note h2 { margin: 0 0 10px; font-size: 1.35rem; }
+    .hero-note ol { margin: 0; padding-left: 1.35em; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0 0 72px;
+      border-block: 1px solid var(--line);
+    }
+    .metric { padding: 22px 10px; text-align: center; }
+    .metric + .metric { border-left: 1px solid var(--line); }
+    .metric strong { display: block; color: var(--teal); font-size: 2rem; line-height: 1.15; }
+    .metric span { color: var(--muted); font-size: .86rem; }
+
+    section { scroll-margin-top: 90px; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 22px;
+      align-items: start;
+      margin: 84px 0 30px;
+    }
+    .section-no { color: var(--orange); font-family: Georgia, serif; font-size: 3rem; font-style: italic; line-height: 1; }
+    .section-head h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -.04em; }
+    .section-head p { max-width: 760px; margin: 8px 0 0; color: var(--muted); }
+
+    .must-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .must-card {
+      min-height: 168px;
+      padding: 20px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--teal);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .must-card:nth-child(2n) { border-top-color: var(--orange); }
+    .must-card .label { color: var(--muted); font-size: .75rem; font-weight: 800; letter-spacing: .12em; }
+    .must-card strong { display: block; margin: 5px 0 4px; font-size: 1.25rem; }
+    .formula { font-family: "Cascadia Mono", Consolas, monospace; font-size: .98rem; }
+
+    .chapters { display: grid; gap: 16px; }
+    details.chapter {
+      overflow: hidden;
+      background: rgba(255,253,247,.88);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+    details.chapter > summary {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 20px 24px;
+      cursor: pointer;
+      list-style: none;
+    }
+    details.chapter > summary::-webkit-details-marker { display: none; }
+    details.chapter > summary::after { content: "+"; color: var(--teal); font-size: 1.8rem; font-weight: 400; }
+    details.chapter[open] > summary::after { content: "−"; }
+    .chapter-index {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--teal);
+      font-weight: 800;
+    }
+    .chapter-title strong { display: block; font-size: 1.25rem; }
+    .chapter-title small { color: var(--muted); }
+    .chapter-body { padding: 2px 24px 26px 92px; }
+    .fact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 28px; }
+    .fact { padding-top: 14px; border-top: 2px solid var(--line); }
+    .fact h3 { margin: 0 0 6px; font-size: 1.02rem; }
+    .fact p, .fact ul { margin: 0; color: var(--muted); }
+    .fact ul { padding-left: 1.2em; }
+    .source {
+      display: inline-block;
+      margin-top: 9px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      color: var(--teal);
+      background: var(--teal-soft);
+      font-size: .72rem;
+      font-weight: 800;
+    }
+    .exam {
+      display: inline;
+      padding: .05em .28em;
+      background: linear-gradient(transparent 58%, rgba(244, 201, 93, .72) 58%);
+      font-weight: 800;
+    }
+
+    .compare-wrap { overflow-x: auto; margin-top: 28px; }
+    table { width: 100%; border-collapse: collapse; background: var(--paper-2); }
+    th, td { padding: 14px 16px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: #fff; background: var(--teal); }
+    tr:nth-child(even) td { background: rgba(13,92,87,.045); }
+    code { padding: .1em .35em; border-radius: 4px; color: var(--red); background: var(--orange-soft); }
+
+    .ppdac {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 26px;
+    }
+    .ppdac-step {
+      position: relative;
+      min-height: 150px;
+      padding: 18px;
+      color: #fff;
+      background: var(--teal);
+      border-radius: 12px;
+    }
+    .ppdac-step:nth-child(even) { background: #174641; }
+    .ppdac-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -19px;
+      z-index: 2;
+      color: var(--orange);
+      font-size: 1.7rem;
+      font-weight: 800;
+      transform: translateY(-50%);
+    }
+    .ppdac-step b { display: block; margin-bottom: 5px; color: var(--yellow); font-size: 1.08rem; }
+    .ppdac-step span { font-size: .9rem; }
+
+    .quiz-shell {
+      padding: clamp(18px, 4vw, 42px);
+      background: #17211f;
+      border-radius: 20px;
+      box-shadow: 10px 10px 0 var(--orange);
+    }
+    .quiz-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+      color: #fff;
+    }
+    .quiz-progress strong { color: var(--yellow); font-size: 1.3rem; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-btn {
+      padding: 7px 11px;
+      border: 1px solid rgba(255,255,255,.32);
+      border-radius: 999px;
+      color: #fff;
+      background: transparent;
+      font-size: .8rem;
+    }
+    .filter-btn[aria-pressed="true"] { color: var(--ink); background: var(--yellow); border-color: var(--yellow); }
+    .quiz-list { display: grid; gap: 14px; }
+    .question-card {
+      padding: 20px;
+      color: var(--ink);
+      background: var(--paper-2);
+      border: 3px solid transparent;
+      border-radius: 12px;
+    }
+    .question-card.is-correct { border-color: var(--green); }
+    .question-card.is-wrong { border-color: var(--red); }
+    .q-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .76rem; font-weight: 800; }
+    fieldset { min-width: 0; margin: 10px 0 0; padding: 0; border: 0; }
+    legend { width: 100%; margin-bottom: 12px; font-weight: 800; line-height: 1.55; }
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 9px 10px;
+      border-radius: 8px;
+    }
+    .option:hover { background: var(--teal-soft); }
+    .option input { margin-top: .42em; accent-color: var(--teal); }
+    .explanation { margin: 14px 0 0; padding: 12px 14px; border-left: 5px solid var(--teal); background: var(--teal-soft); }
+    .question-card.is-wrong .explanation { border-left-color: var(--red); background: var(--red-soft); }
+    .quiz-result {
+      display: none;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 20px;
+      color: var(--ink);
+      background: var(--yellow);
+      border-radius: 12px;
+    }
+    .quiz-result.show { display: grid; }
+    .score-ring {
+      display: grid;
+      place-items: center;
+      width: 94px;
+      height: 94px;
+      border: 7px solid var(--ink);
+      border-radius: 50%;
+      font-size: 1.45rem;
+      font-weight: 900;
+    }
+    .result-copy h3 { margin: 0; }
+    .result-copy p { margin: 4px 0 0; }
+    .quiz-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .quiz-actions .btn { box-shadow: none; }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 90px;
+    }
+    .check-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+    .check-item input { width: 20px; height: 20px; margin-top: .2em; accent-color: var(--teal); }
+
+    footer {
+      padding: 34px 0;
+      color: rgba(255,255,255,.76);
+      background: var(--ink);
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .hero-grid, .fact-grid { grid-template-columns: 1fr; }
+      .must-grid { grid-template-columns: repeat(2, 1fr); }
+      .ppdac { grid-template-columns: 1fr; }
+      .ppdac-step { min-height: 0; }
+      .ppdac-step:not(:last-child)::after { content: "↓"; top: auto; right: 50%; bottom: -24px; transform: translateX(50%); }
+    }
+    @media (max-width: 620px) {
+      .topbar { align-items: flex-start; }
+      .topbar strong { display: none; }
+      .hero { padding-top: 48px; }
+      .metrics, .must-grid, .checklist { grid-template-columns: 1fr; }
+      .metric + .metric { border-left: 0; border-top: 1px solid var(--line); }
+      .section-head { grid-template-columns: 1fr; gap: 8px; }
+      .section-no { font-size: 2rem; }
+      details.chapter > summary { grid-template-columns: 44px 1fr auto; padding: 16px; }
+      .chapter-body { padding: 0 16px 20px; }
+      .quiz-result { grid-template-columns: 1fr; }
+      .score-ring { width: 78px; height: 78px; }
+    }
+
+    @media print {
+      .topbar, .hero-actions, .quiz-toolbar, .quiz-actions, footer { display: none !important; }
+      body { background: #fff; color: #000; }
+      .wrap { width: 100%; }
+      .hero { padding: 20px 0; }
+      .hero-note, .must-card, details.chapter, .quiz-shell { box-shadow: none; }
+      details.chapter { break-inside: avoid; }
+      details.chapter:not([open]) > *:not(summary) { display: block; }
+      .quiz-shell { color: #000; background: #fff; padding: 0; }
+      .question-card { break-inside: avoid; border: 1px solid #aaa; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <strong>TEST PREP / 2026</strong>
+    <nav class="topnav" aria-label="ページ内メニュー">
+      <a href="#must">最重要</a>
+      <a href="#sheet">要点シート</a>
+      <a href="#quiz">28問テスト</a>
+      <a href="#last-check">最終確認</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">第1回〜第10回を1枚に圧縮</p>
+            <h1 id="page-title">明日の<span>テスト対策</span><br>完全シート</h1>
+            <p class="lead">Windows・Excelの基礎から、記述統計、データベース、相関／回帰、PPDACまで。資料内の定義・基準値・関数を、覚える順番で整理しました。</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#quiz">まず28問を解く →</a>
+              <a class="btn" href="#sheet">要点から復習</a>
+              <button class="btn ghost" type="button" onclick="window.print()">印刷する</button>
+            </div>
+          </div>
+          <aside class="hero-note" aria-label="おすすめの使い方">
+            <h2>60分で仕上げる</h2>
+            <ol>
+              <li>最重要6項目を暗記（10分）</li>
+              <li>要点シートを流し読み（20分）</li>
+              <li>28問テスト→間違い直し（30分）</li>
+            </ol>
+          </aside>
+        </div>
+      </section>
+
+      <div class="metrics" aria-label="教材の概要">
+        <div class="metric"><strong>10</strong><span>講義資料</span></div>
+        <div class="metric"><strong>5</strong><span>重点分野</span></div>
+        <div class="metric"><strong>28</strong><span>自動採点問題</span></div>
+      </div>
+
+      <section id="must" aria-labelledby="must-title">
+        <div class="section-head">
+          <div class="section-no">01</div>
+          <div><h2 id="must-title">まず暗記する6項目</h2><p>ここは定義・式・判断基準がはっきりしていて、問題にしやすい箇所です。</p></div>
+        </div>
+        <div class="must-grid">
+          <article class="must-card"><span class="label">DESCRIPTIVE STATS</span><strong>代表値</strong><span>平均＝合計÷個数／中央値＝並べた中央／最頻値＝最多の値</span></article>
+          <article class="must-card"><span class="label">OUTLIER</span><strong>外れ値</strong><span class="formula">|値−平均| ÷ 標準偏差 ≥ 3</span></article>
+          <article class="must-card"><span class="label">REGRESSION</span><strong>単回帰式</strong><span class="formula">y = ax + b</span><br><span>x＝説明変数、y＝目的変数</span></article>
+          <article class="must-card"><span class="label">EXCEL OUTPUT</span><strong>分析結果の基準</strong><span>補正R²：0.5以上／有意F・P値：0.05未満</span></article>
+          <article class="must-card"><span class="label">DATABASE</span><strong>正規化</strong><span>第1＝繰返し、第2＝部分従属、第3＝推移従属をなくす</span></article>
+          <article class="must-card"><span class="label">PROCESS</span><strong>PPDAC</strong><span>Problem → Plan → Data → Analysis → Conclusion</span></article>
+        </div>
+      </section>
+
+      <section id="sheet" aria-labelledby="sheet-title">
+        <div class="section-head">
+          <div class="section-no">02</div>
+          <div><h2 id="sheet-title">講義別・要点シート</h2><p>各章は開閉できます。黄色い下線は、特にそのまま問われやすい表現です。</p></div>
+        </div>
+
+        <div class="chapters">
+          <details class="chapter" open>
+            <summary><span class="chapter-index">1</span><span class="chapter-title"><strong>PC・データ・Excelの基礎</strong><small>第1〜2回</small></span></summary>
+            <div class="chapter-body"><div class="fact-grid">
+              <div class="fact"><h3>ファイルとネットワーク</h3><p>URLはインターネット上の情報の「住所」。拡張子はファイル種類を表す。SSIDはWi-Fiの名前、セキュリティキーはパスワード。</p><span class="source">第1回 p.18, 22, 48</span></div>
+              <div class="fact"><h3>クラウド・IoT・オープンデータ</h3><p>クラウドはネット経由でサービスや保存領域を利用する形。IoTはモノをネットに接続。オープンデータは誰でも入手でき、自由に利用・再配布でき、機械判読可能。</p><span class="source">第1回 p.50–63</span></div>
+              <div class="fact"><h3>データ量の単位</h3><p><span class="exam">KB → MB → GB → TB → PB → EB → ZB</span>。講義では隣の単位へ1024倍としている。</p><span class="source">第1回 p.63</span></div>
+              <div class="fact"><h3>機械が読みやすい表</h3><p>1セル1データ。セル結合、空欄による省略、セル内改行・スペース、1セルへの複数値の羅列を避ける。</p><span class="source">第2回 p.14–15</span></div>
+              <div class="fact"><h3>Excelの基本関数</h3><p><code>=SUM(C2:H2)</code> は合計。<code>=IF(条件,真の場合,偽の場合)</code> は条件分岐。式は <code>=</code> から始める。</p><span class="source">第2回 p.19–20</span></div>
+              <div class="fact"><h3>絶対参照・集計・可視化</h3><p><code>$M$3</code> はコピーしても参照先が動かない。ピボットテーブルはグループ別集計。ヒストグラムは横軸＝階級、縦軸＝度数。</p><span class="source">第2回 p.21–23, 28, 47–48</span></div>
+            </div></div>
+          </details>
+
+          <details class="chapter" open>
+            <summary><span class="chapter-index">2</span><span class="chapter-title"><strong>記述統計・外れ値</strong><small>第3〜4回</small></span></summary>
+            <div class="chapter-body"><div class="fact-grid">
+              <div class="fact"><h3>平均・中央値・最頻値</h3><p>分布が左右対称に近いと3つは近づく。格差などで偏るデータはずれやすく、<span class="exam">外れ値に強い中央値</span>が役立つ。</p><span class="source">第3回 p.4–9</span></div>
+              <div class="fact"><h3>偏差と標準偏差</h3><p>偏差＝値−平均。標準偏差は散らばりの大きさで、全値が平均と一致すれば0。母集団は <code>STDEV.P</code>、標本は <code>STDEV.S</code>。</p><span class="source">第3回 p.10–13</span></div>
+              <div class="fact"><h3>正規分布の目安</h3><p>平均±1σに約68%（講義文では約70%）、±2σに約95%、±3σに約99.7%（講義文では99%以上）。</p><span class="source">第3回 p.17</span></div>
+              <div class="fact"><h3>外れ値の判定</h3><p>講義では、正規分布を前提に<span class="exam">平均から±3σ以上</span>を外れ値とする。係数は <code>(値−平均)÷標準偏差</code>。</p><span class="source">第3回 p.17–20／第4回 p.37–44</span></div>
+            </div></div>
+          </details>
+
+          <details class="chapter" open>
+            <summary><span class="chapter-index">3</span><span class="chapter-title"><strong>データベース・結合</strong><small>第4〜5回</small></span></summary>
+            <div class="chapter-body"><div class="fact-grid">
+              <div class="fact"><h3>DB・DBMS・RDB</h3><p>データベースはデータを一か所に集めて活用できるようにしたもの。DBMSは一元管理・加工・高速処理を行う。RDBは表（テーブル）で保存。</p><span class="source">第4回 p.2–8</span></div>
+              <div class="fact"><h3>主キーと外部キー</h3><p><span class="exam">主キーは1行を一意に特定</span>する列。外部キーは別テーブルの主キーを参照して、表同士を結ぶ。</p><span class="source">第4回 p.9</span></div>
+              <div class="fact"><h3>ER図</h3><p>エンティティ＝管理対象（多くはテーブル）、属性＝列、インスタンス＝行。リレーションシップはエンティティ間の関係（1:1、1:Nなど）。</p><span class="source">第4回 p.10–14</span></div>
+              <div class="fact"><h3>第1〜第3正規化</h3><p>第1：繰返しを分離。第2：複合主キーの一部だけに従う属性（部分関数従属）を分離。第3：A→B→Cの推移関数従属を分離。</p><span class="source">第4回 p.18–24</span></div>
+              <div class="fact"><h3>VLOOKUP</h3><p><code>=VLOOKUP(検索値,範囲,列番号,0)</code>。検索キーは範囲の左端、取り出せるのは右側。範囲は <code>$</code> で固定、0は完全一致。</p><span class="source">第4回 p.25–30</span></div>
+              <div class="fact"><h3>結合キー</h3><p>市町村名だけでは重複するため「県名＆市町村名」のように一意なキーを作る。行数が違う表を単純コピーするとずれる。</p><span class="source">第5回 p.18–30</span></div>
+            </div></div>
+          </details>
+
+          <details class="chapter" open>
+            <summary><span class="chapter-index">4</span><span class="chapter-title"><strong>相関・回帰・仮説検定</strong><small>第5・7〜9回</small></span></summary>
+            <div class="chapter-body"><div class="fact-grid">
+              <div class="fact"><h3>相関</h3><p>相関係数Rは−1〜1。符号が向き、絶対値が直線関係の強さを示す。<span class="exam">相関があっても因果関係とは限らない</span>。非線形関係はRが低く出ることがある。</p><span class="source">第5回 p.3–4</span></div>
+              <div class="fact"><h3>回帰</h3><p>目的変数yを説明変数xで説明・予測。単回帰は説明変数1つ、重回帰は複数。式は <code>y=ax+b</code>（a＝傾き、b＝切片）。</p><span class="source">第5回 p.5–10</span></div>
+              <div class="fact"><h3>決定係数</h3><p>R²はモデルの当てはまり。講義基準は0.5以上で良好、0.2未満なら見直しを検討。重回帰では説明変数の数を考慮した<span class="exam">補正R²</span>を見る。</p><span class="source">第5回 p.7／第7回 p.6</span></div>
+              <div class="fact"><h3>Excel出力の4点</h3><p>①補正R²≧0.5、②有意F＜0.05（モデル全体）、③各説明変数のP値＜0.05、④回帰係数（影響の向きと大きさ）。</p><span class="source">第7回 p.6</span></div>
+              <div class="fact"><h3>帰無仮説とP値</h3><p>帰無仮説は「モデル／係数は意味がない」。P値が0.05未満なら、その仮説を棄却し、意味があると判断する。</p><span class="source">第7回 p.19–23</span></div>
+              <div class="fact"><h3>モデル改善</h3><p>外れ値を除く、相関しそうな変数を加える、P値が高い変数を外す、PPDACを繰り返す。ただし少数データの高R²を鵜呑みにしない。</p><span class="source">第7回 p.17–23／第8回 p.16</span></div>
+            </div></div>
+          </details>
+
+          <details class="chapter" open>
+            <summary><span class="chapter-index">5</span><span class="chapter-title"><strong>PPDAC・分析レポート</strong><small>第6・8〜10回</small></span></summary>
+            <div class="chapter-body">
+              <div class="ppdac" aria-label="PPDACサイクル">
+                <div class="ppdac-step"><b>P / Problem</b><span>問題・理想と現状の差・分析目的を明示</span></div>
+                <div class="ppdac-step"><b>P / Plan</b><span>仮説、方法、必要データ、代替データを計画</span></div>
+                <div class="ppdac-step"><b>D / Data</b><span>収集、検査、整形、符号化、エラー処理</span></div>
+                <div class="ppdac-step"><b>A / Analysis</b><span>統計量や分析手法で仮説を検証</span></div>
+                <div class="ppdac-step"><b>C / Conclusion</b><span>結果を解釈し、改善策と次のサイクルへ</span></div>
+              </div>
+              <div class="fact-grid" style="margin-top:24px">
+                <div class="fact"><h3>最重要メッセージ</h3><p><span class="exam">「データがあるから分析する」はNG</span>。何を明らかにし、何を成し遂げたいかを先に決める。仮説が外れた結果も重要な発見。</p><span class="source">第6回 p.2–10</span></div>
+                <div class="fact"><h3>レポート構成</h3><p>①目的（Problem）②方法とデータ選定理由・仮説（Plan/Data）③数値結果と自分の解釈・改善余地（Analysis/Conclusion）。初見の人にも伝わる説明にする。</p><span class="source">第10回 p.2, 7–8</span></div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="section-head" style="margin-top:62px">
+          <div class="section-no">↔</div>
+          <div><h2>混同しやすい用語</h2><p>似た言葉は、何を判断する値かまでセットで覚えます。</p></div>
+        </div>
+        <div class="compare-wrap">
+          <table>
+            <thead><tr><th>用語</th><th>何を見る？</th><th>覚え方</th></tr></thead>
+            <tbody>
+              <tr><td>相関係数 R</td><td>2変数の直線的な関係の向き・強さ</td><td>−1〜1。因果関係を保証しない。</td></tr>
+              <tr><td>決定係数 R²／補正R²</td><td>回帰モデルの当てはまり</td><td>重回帰は補正R²。講義の目安は0.5以上。</td></tr>
+              <tr><td>有意F</td><td>回帰モデル全体の信頼度</td><td>0.05未満。</td></tr>
+              <tr><td>P値</td><td>各説明変数の信頼度</td><td>0.05未満なら係数0の帰無仮説を棄却。</td></tr>
+              <tr><td>目的変数 y</td><td>予測・説明したい結果</td><td>回帰分析の入力Y範囲。</td></tr>
+              <tr><td>説明変数 x</td><td>結果に影響すると考える要因</td><td>回帰分析の入力X範囲。</td></tr>
+              <tr><td>主キー</td><td>同じテーブルの行を一意に決める</td><td>重複しない識別子。</td></tr>
+              <tr><td>外部キー</td><td>別テーブルと結びつける</td><td>参照先の主キーにつながる。</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-head" style="margin-top:62px">
+          <div class="section-no">fx</div>
+          <div><h2>Excel関数ミニ辞典</h2><p>式の意味を日本語で説明できる状態を目標に。</p></div>
+        </div>
+        <div class="compare-wrap">
+          <table>
+            <thead><tr><th>目的</th><th>式</th><th>注意</th></tr></thead>
+            <tbody>
+              <tr><td>合計</td><td><code>=SUM(A1:A10)</code></td><td>範囲内を合計</td></tr>
+              <tr><td>平均</td><td><code>=AVERAGE(A1:A10)</code></td><td>合計÷データ数</td></tr>
+              <tr><td>中央値</td><td><code>=MEDIAN(A1:A10)</code></td><td>並べ替えはExcelが行う</td></tr>
+              <tr><td>最頻値</td><td><code>=MODE(A1:A10)</code></td><td>講義資料の表記</td></tr>
+              <tr><td>母標準偏差</td><td><code>=STDEV.P(A1:A10)</code></td><td>STDEV.Sと区別</td></tr>
+              <tr><td>条件分岐</td><td><code>=IF(A2&gt;=60,"合格","再試")</code></td><td>条件, 真, 偽</td></tr>
+              <tr><td>表の結合</td><td><code>=VLOOKUP(C2,所属!$A$1:$C$4,2,0)</code></td><td>キーは範囲左端、0は完全一致</td></tr>
+              <tr><td>文字列結合</td><td><code>=A2&amp;B2</code></td><td>CONCAT関数でも可</td></tr>
+              <tr><td>切り捨て</td><td><code>=ROUNDDOWN(C7/10000,0)</code></td><td>桁数0は整数へ切り捨て</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="quiz" aria-labelledby="quiz-title">
+        <div class="section-head">
+          <div class="section-no">03</div>
+          <div><h2 id="quiz-title">自動採点・28問テスト</h2><p>未回答は不正解として採点されます。採点後は解説と出典が表示され、間違えた問題だけに絞れます。</p></div>
+        </div>
+        <div class="quiz-shell">
+          <div id="quiz-result" class="quiz-result" aria-live="polite"></div>
+          <div class="quiz-toolbar">
+            <div class="quiz-progress"><strong id="answered-count">0</strong> / 28 問回答</div>
+            <div id="filters" class="filters" aria-label="分野フィルター"></div>
+          </div>
+          <form id="quiz-form">
+            <div id="quiz-list" class="quiz-list"></div>
+            <div class="quiz-actions">
+              <button class="btn primary" type="submit">採点する</button>
+              <button class="btn" id="wrong-only" type="button" hidden>間違いだけ復習</button>
+              <button class="btn ghost" id="reset-quiz" type="button" style="color:#fff;border-color:#fff">回答をリセット</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="last-check" aria-labelledby="last-check-title">
+        <div class="section-head">
+          <div class="section-no">04</div>
+          <div><h2 id="last-check-title">寝る前の最終チェック</h2><p>説明できた項目にチェック。1つでも曖昧なら該当章だけ戻ればOKです。</p></div>
+        </div>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox"><span>平均・中央値・最頻値・標準偏差の違いを説明できる</span></label>
+          <label class="check-item"><input type="checkbox"><span>外れ値を「平均から標準偏差の何倍か」で判定できる</span></label>
+          <label class="check-item"><input type="checkbox"><span>第1・第2・第3正規化の違いを言える</span></label>
+          <label class="check-item"><input type="checkbox"><span>相関と因果、相関と回帰の違いを説明できる</span></label>
+          <label class="check-item"><input type="checkbox"><span>補正R²・有意F・P値・回帰係数を見る場所と基準を言える</span></label>
+          <label class="check-item"><input type="checkbox"><span>PPDACを順番どおり言い、各段階の仕事を説明できる</span></label>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer><div class="wrap">第1回〜第10回の配布資料をもとに作成した、個人学習用の試験対策シートです。</div></footer>
+
+  <script>
+    const quizData = [
+      {unit:"基礎", q:"URLの説明として最も適切なものはどれ？", options:["PC内のファイル形式","インターネット上の情報の住所","Wi-Fiのパスワード","ブラウザの種類"], a:1, exp:"URLは、インターネット上の情報が存在する『住所』です。", src:"第1回 p.18"},
+      {unit:"基礎", q:"オープンデータの特徴として不適切なものはどれ？", options:["誰でも入手可能","自由に利用・再配布できる","特許・著作権の制限がない","紙でしか利用できない"], a:3, exp:"オープンデータはコンピューターから利用できる、機械判読可能な状態が必要です。", src:"第1回 p.62"},
+      {unit:"基礎", q:"講義資料の順序で、データ量が小さいものから正しく並んでいるのは？", options:["GB→MB→KB→TB","KB→MB→GB→TB","KB→GB→MB→TB","TB→GB→MB→KB"], a:1, exp:"KB < MB < GB < TB < PB < EB < ZB の順です。", src:"第1回 p.63"},
+      {unit:"Excel", q:"機械が活用しやすい表を作るうえで、避けるべき操作は？", options:["1セルに1データを入れる","各行に同じ項目を省略せず入れる","見栄えのためにセルを結合する","列ごとに同じ種類の値を入れる"], a:2, exp:"セル結合、空欄による省略、セル内改行、複数値の羅列は検索・集計を難しくします。", src:"第2回 p.15"},
+      {unit:"Excel", q:"IF関数の正しい基本形はどれ？", options:["=IF(条件,条件に合う値,合わない値)","=IF(範囲,合計)","=IF(検索値,範囲,列番号,0)","=IF(平均,標準偏差)"], a:0, exp:"IFは『条件・真の場合・偽の場合』の順です。", src:"第2回 p.20"},
+      {unit:"Excel", q:"式をコピーしてもM3セルを固定して参照したい。正しい書き方は？", options:["M3","M$3","$M3","$M$3"], a:3, exp:"行と列の両方に$を付けた$M$3が絶対参照です。", src:"第2回 p.21–23"},
+      {unit:"Excel", q:"ヒストグラムの横軸と縦軸の組み合わせは？", options:["横：度数／縦：階級","横：階級／縦：度数","横：平均／縦：中央値","横：項目名／縦：相関"], a:1, exp:"度数分布表の階級を横軸、度数を縦軸にプロットします。", src:"第2回 p.47–48"},
+      {unit:"統計", q:"データ [2, 4, 4, 10] の平均値は？", options:["4","5","6","20"], a:1, exp:"(2+4+4+10)÷4＝5です。", src:"第3回 p.5–6"},
+      {unit:"統計", q:"データ [1, 4, 6, 9] の中央値は？", options:["4","5","6","10"], a:1, exp:"データ数が偶数なので、中央2値4と6の平均＝5です。", src:"第3回 p.7"},
+      {unit:"統計", q:"すべてのデータが同じ値のとき、標準偏差はどうなる？", options:["0","1","平均値と同じ","計算できない"], a:0, exp:"全データが平均値と一致し、散らばりがないため標準偏差は0です。", src:"第3回 p.12–13"},
+      {unit:"統計", q:"講義での外れ値の目安は、平均からどれだけ離れた値？", options:["±1σ以上","±2σ以上","±3σ以上","平均との差が1以上"], a:2, exp:"正規分布を前提に、±3σ以上離れた値を外れ値としています。", src:"第3回 p.17–19"},
+      {unit:"統計", q:"平均との差が535,300、標準偏差が178,653のとき、σ係数はおよそいくつ？", options:["0.33","1.00","2.00","3.00"], a:3, exp:"535,300÷178,653≒3.00です。講義例では外れ値候補になります。", src:"第3回 p.18–20"},
+      {unit:"DB", q:"DBMSの役割として最も適切なものは？", options:["画像だけを編集する","データを一元管理し、高速に処理・加工する","URLを短くする","プレゼン資料を共同編集する"], a:1, exp:"DBMSはデータの一元管理、集計・加工、大量データの高速処理を担います。", src:"第4回 p.3"},
+      {unit:"DB", q:"テーブルの1行を一意に特定できる列を何という？", options:["属性","外部キー","主キー","エンティティ"], a:2, exp:"主キーは行を1つに決める識別子です。", src:"第4回 p.9"},
+      {unit:"DB", q:"リレーショナルデータベースの1つのフィールドに格納できる値は？", options:["必ず複数","1つだけ","画像だけ","数値だけ"], a:1, exp:"行と列の交点であるフィールドには1つの値を格納します。", src:"第4回 p.8"},
+      {unit:"DB", q:"第1正規化で取り除くものは？", options:["繰り返し","部分関数従属","推移関数従属","外部キー"], a:0, exp:"第1正規化は非正規形の繰り返し部分を分離します。", src:"第4回 p.18–20"},
+      {unit:"DB", q:"第2正規化で取り除くものは？", options:["すべての主キー","部分関数従属","推移関数従属","リレーションシップ"], a:1, exp:"複合主キーの一部だけに従属する属性を分離します。", src:"第4回 p.21–23"},
+      {unit:"DB", q:"第3正規化で取り除く『A→B→C』型の従属性は？", options:["完全関数従属","部分関数従属","推移関数従属","相関関係"], a:2, exp:"第3正規化では推移関数従属を取り除きます。", src:"第4回 p.24"},
+      {unit:"DB", q:"VLOOKUPで正しい注意点はどれ？", options:["検索キーは範囲の一番右に置く","列番号はシート全体の左から数える","検索キーは範囲の左端に置き、右側の値を取得する","最後の引数は常に1にする"], a:2, exp:"VLOOKUPは範囲左端から検索し、右側の列を返します。講義では最後の引数を0（完全一致）で固定します。", src:"第4回 p.25–30"},
+      {unit:"回帰", q:"相関係数 R=-0.85 の解釈として最も適切なのは？", options:["強い正の相関","強い負の相関","相関なし","必ず因果関係がある"], a:1, exp:"Rは−1〜1。−1に近いため強い負の直線的関係です。", src:"第5回 p.3"},
+      {unit:"回帰", q:"『相関係数が高い』ことから直接言えるのは？", options:["必ず因果関係がある","一方を変えれば他方も必ず変わる","直線的な関係が強い","外れ値が存在しない"], a:2, exp:"相関は直線的関係の強さであり、因果関係を保証しません。", src:"第5回 p.4"},
+      {unit:"回帰", q:"回帰式 y=ax+b で、yとxはそれぞれ何？", options:["y：説明変数／x：目的変数","y：目的変数／x：説明変数","両方とも目的変数","両方とも説明変数"], a:1, exp:"予測したい結果が目的変数y、要因が説明変数xです。", src:"第5回 p.5–6"},
+      {unit:"回帰", q:"説明変数を複数使う分析を何という？", options:["単回帰分析","重回帰分析","度数分析","正規化"], a:1, exp:"説明変数1つが単回帰、複数が重回帰です。", src:"第5回 p.9–10"},
+      {unit:"回帰", q:"Excelの重回帰結果で、説明変数の数を考慮した当てはまりを見る値は？", options:["相関係数だけ","補正R²","P値だけ","切片"], a:1, exp:"重回帰では、説明変数を増やしただけの見かけ上の改善を補正する補正R²を見ます。", src:"第7回 p.6／第8回 p.16"},
+      {unit:"回帰", q:"講義の判断基準で、モデル全体と個別変数が信頼できる目安は？", options:["有意F>0.5、P値>0.5","有意F<0.05、P値<0.05","有意F=1、P値=1","どちらもR²と同じ"], a:1, exp:"有意Fはモデル全体、P値は各変数。どちらも0.05未満が講義の目安です。", src:"第7回 p.6, 21"},
+      {unit:"回帰", q:"少数データでR²=0.98だった。最も適切な態度は？", options:["必ず最高のモデルだと断定する","データ量や有意Fも確認する","P値を見ずに説明変数を増やす","因果関係が証明されたとする"], a:1, exp:"データが少ないとR²が高く見える場合があります。モデルの信頼性も検証します。", src:"第7回 p.18–23"},
+      {unit:"PPDAC", q:"PPDACの正しい順番は？", options:["Plan→Problem→Analysis→Data→Conclusion","Problem→Plan→Data→Analysis→Conclusion","Problem→Data→Plan→Conclusion→Analysis","Data→Analysis→Problem→Plan→Conclusion"], a:1, exp:"Problem、Plan、Data、Analysis、Conclusionの順で、結論から次のサイクルへ進みます。", src:"第6回 p.2–10"},
+      {unit:"PPDAC", q:"分析を始めるとき、最初に行うべきことは？", options:["手元のデータをすべてグラフ化","目的と問題を明示","回帰係数を計算","仮説に合わないデータを削除"], a:1, exp:"『データがあるから』ではなく、理想と現状の差、明らかにしたいことを先に定めます。", src:"第6回 p.3–5"}
+    ];
+
+    const answers = {};
+    let submitted = false;
+    let activeUnit = "すべて";
+    let wrongOnly = false;
+
+    const list = document.getElementById("quiz-list");
+    const form = document.getElementById("quiz-form");
+    const result = document.getElementById("quiz-result");
+    const answeredCount = document.getElementById("answered-count");
+    const wrongButton = document.getElementById("wrong-only");
+
+    function visibleQuestions() {
+      return quizData.map((item, index) => ({item, index})).filter(({item, index}) => {
+        const unitMatch = activeUnit === "すべて" || item.unit === activeUnit;
+        const wrongMatch = !wrongOnly || answers[index] !== item.a;
+        return unitMatch && wrongMatch;
+      });
+    }
+
+    function renderFilters() {
+      const units = ["すべて", ...new Set(quizData.map(item => item.unit))];
+      document.getElementById("filters").innerHTML = units.map(unit =>
+        `<button class="filter-btn" type="button" data-unit="${unit}" aria-pressed="${activeUnit === unit}">${unit}</button>`
+      ).join("");
+    }
+
+    function renderQuiz() {
+      const rows = visibleQuestions();
+      if (!rows.length) {
+        list.innerHTML = `<div class="question-card"><strong>この条件に合う問題はありません。</strong></div>`;
+        return;
+      }
+      list.innerHTML = rows.map(({item, index}) => {
+        const answered = answers[index] !== undefined;
+        const correct = submitted && answers[index] === item.a;
+        const wrong = submitted && answers[index] !== item.a;
+        const stateClass = correct ? " is-correct" : wrong ? " is-wrong" : "";
+        const status = submitted ? (correct ? "正解" : "不正解") : (answered ? "回答済み" : "未回答");
+        return `<article class="question-card${stateClass}" data-question="${index}">
+          <div class="q-meta"><span>Q${index + 1} / ${item.unit}</span><span>${status}</span></div>
+          <fieldset><legend>${item.q}</legend>
+            ${item.options.map((option, optionIndex) => `<label class="option"><input type="radio" name="q${index}" value="${optionIndex}" ${answers[index] === optionIndex ? "checked" : ""}><span>${option}</span></label>`).join("")}
+          </fieldset>
+          ${submitted ? `<p class="explanation"><strong>正解：${item.options[item.a]}</strong><br>${item.exp}<br><span class="source">${item.src}</span></p>` : ""}
+        </article>`;
+      }).join("");
+    }
+
+    function updateProgress() {
+      answeredCount.textContent = Object.keys(answers).length;
+    }
+
+    document.getElementById("filters").addEventListener("click", event => {
+      const button = event.target.closest("button[data-unit]");
+      if (!button) return;
+      activeUnit = button.dataset.unit;
+      wrongOnly = false;
+      wrongButton.textContent = "間違いだけ復習";
+      renderFilters();
+      renderQuiz();
+    });
+
+    list.addEventListener("change", event => {
+      if (!event.target.matches("input[type=radio]")) return;
+      const card = event.target.closest("[data-question]");
+      answers[Number(card.dataset.question)] = Number(event.target.value);
+      if (submitted) submitted = false;
+      result.classList.remove("show");
+      wrongButton.hidden = true;
+      updateProgress();
+      renderQuiz();
+    });
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      submitted = true;
+      wrongOnly = false;
+      const score = quizData.reduce((sum, item, index) => sum + (answers[index] === item.a ? 1 : 0), 0);
+      const percent = Math.round(score / quizData.length * 100);
+      const message = percent >= 90 ? "仕上がっています。最後に間違いだけ確認しよう。" : percent >= 70 ? "合格圏。間違えた分野をもう1周すると安定します。" : "要点シートに戻って、間違いの多い章を重点復習しよう。";
+      result.innerHTML = `<div class="score-ring">${percent}%</div><div class="result-copy"><h3>${score} / ${quizData.length} 問正解</h3><p>${message}</p></div>`;
+      result.classList.add("show");
+      wrongButton.hidden = score === quizData.length;
+      wrongButton.textContent = "間違いだけ復習";
+      renderQuiz();
+      result.scrollIntoView({behavior:"smooth", block:"center"});
+    });
+
+    wrongButton.addEventListener("click", () => {
+      wrongOnly = !wrongOnly;
+      activeUnit = "すべて";
+      wrongButton.textContent = wrongOnly ? "全問題に戻す" : "間違いだけ復習";
+      renderFilters();
+      renderQuiz();
+    });
+
+    document.getElementById("reset-quiz").addEventListener("click", () => {
+      Object.keys(answers).forEach(key => delete answers[key]);
+      submitted = false;
+      wrongOnly = false;
+      activeUnit = "すべて";
+      result.classList.remove("show");
+      wrongButton.hidden = true;
+      renderFilters();
+      renderQuiz();
+      updateProgress();
+    });
+
+    renderFilters();
+    renderQuiz();
+    updateProgress();
+  </script>
+</body>
+</html>
